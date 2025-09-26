@@ -1,0 +1,25 @@
+/* Import Tailwind CSS framework */
+@import 'tailwindcss';
+@import '../../vendor/livewire/flux/dist/flux.css';
+
+/* Custom theme configuration with system font stack */
+@theme {
+    --font-sans: Inter, sans-serif, 'Inter var', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* Include Tailwind CSS plugins for enhanced form styling and typography */
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Remove default red box-shadow on invalid form elements */
+input:invalid, textarea:invalid, select:invalid {
+    box-shadow: none;
+}
+
+/* Hide elements with x-cloak attribute (used with Alpine.js) until JavaScript loads */
+[x-cloak] {
+    display: none;
+}
