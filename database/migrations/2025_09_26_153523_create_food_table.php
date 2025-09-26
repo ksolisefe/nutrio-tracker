@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('protein', 8, 2)->nullable();
             $table->decimal('carbohydrates', 8, 2)->nullable();
             $table->decimal('fat', 8, 2)->nullable();
+            $table->string('ingredients')->nullable();
             $table->string('brand_owner')->nullable();
             $table->string('category')->index()->nullable();
             $table->string('gtin_upc')->nullable();

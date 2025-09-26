@@ -13,7 +13,7 @@ class Food extends Model
 
     protected $fillable = [
         'fdc_id', 'name', 'food_type', 'calories', 'protein', 
-        'carbohydrates', 'fat', 'brand_owner', 'category', 
+        'carbohydrates', 'fat', 'ingredients','brand_owner', 'category', 
         'gtin_upc', 'serving_size', 'serving_size_unit', 
         'fibre', 'sodium', 'sugars'
     ];

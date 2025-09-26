@@ -1,6 +1,14 @@
 <div>
     <flux:heading size="xl" level="1">Food Index</flux:heading>
     <flux:text class="mt-2 mb-6 text-base">Here's what's new today in the USDA Food Database</flux:text>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        @foreach ($random_foods as $food)
+            <x-food-card :food="$food" />
+        @endforeach
+    </div>
+    
+    <flux:text class="mt-2 mb-6 text-base">See the whole list of foods below:</flux:text>
 
     <flux:table :paginate="$foods">
         <flux:table.columns>

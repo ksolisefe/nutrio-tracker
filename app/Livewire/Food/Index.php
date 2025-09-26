@@ -16,6 +16,7 @@ class Index extends Component
 
         return view('livewire.food.index', [
             'foods' => $foods,
+            'random_foods' => Food::inRandomOrder()->limit(10)->get(),
         ]);
     }
 }

@@ -1,61 +1,75 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Nutrio Tracker (Laravel + TALL + Livewire Flux)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This app is built on the TALL stack (Tailwind CSS, Alpine.js, Laravel, Livewire) preset and uses Livewire Flux UI components. It includes importers to seed USDA Foundation and Branded Foods datasets into the local database.
 
-## About Laravel
+### Stack and tooling
+- TALL preset: see `laravel-frontend-presets/tall` [repo](https://github.com/laravel-frontend-presets/tall).
+- Livewire Flux UI (basic + pro). Pro package requires authentication with the vendor and a Composer auth token.
+- Laravel Debugbar for local profiling: `barryvdh/laravel-debugbar` [repo](https://github.com/barryvdh/laravel-debugbar).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Requirements
+- PHP 8.2+
+- Node 18+ and NPM
+- Composer
+- SQLite (default) or another DB configured via `.env`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Getting started
+1) Install dependencies
+```bash
+composer install
+npm install
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+2) Environment setup
+```bash
+cp .env.example .env
+php artisan key:generate
+# SQLite default; ensure the DB file exists
+touch database/database.sqlite
+```
 
-## Learning Laravel
+3) Flux Pro authentication (if not already configured)
+- Pro packages require Composer authentication. Configure your token/credentials (e.g., in `auth.json`) per vendor instructions, then run `composer install` again if needed.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+4) Run the app (choose ONE of the following)
+- Single command (starts PHP server, queue listener, logs, Vite):
+```bash
+composer run dev
+```
+- Manual processes (separate terminals):
+```bash
+php artisan serve
+npm run dev
+```
+Note: run only one Vite dev server. If two are started, the second will bump to another port.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### USDA datasets and seeding
+- Download datasets from the USDA FoodData Central downloads page: [fdc.nal.usda.gov/download-datasets](https://fdc.nal.usda.gov/download-datasets).
+- Place the files at:
+  - `database/seeders/data/usda_foundation_foods.json`
+  - `database/seeders/data/usda_branded_foods.json`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Seed the database (will run the importers automatically via `DatabaseSeeder`):
+```bash
+php artisan migrate:fresh --seed
+```
+Or run import commands individually:
+```bash
+php artisan app:import-usda-data            # Foundation Foods
+php artisan app:import-usda-branded-data    # Branded Foods
+```
 
-## Laravel Sponsors
+### Development notes
+- Blade + Livewire
+  - For typical pages: use a Blade wrapper that extends `layouts.base` and embed Livewire with `<livewire:... />`.
+  - Livewire views must have a single root element and should not `@extends` a layout.
+- Vite HMR
+  - `@vite(['resources/css/app.css','resources/js/app.js'])` is included in `layouts.base`.
+  - Keep only one Vite server running to avoid port bumping.
+- Debugbar
+  - Debugbar is intended for local development. You can toggle via `APP_DEBUG=true` and the package config.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### References
+- TALL preset: [laravel-frontend-presets/tall](https://github.com/laravel-frontend-presets/tall)
+- Laravel Debugbar: [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
+- USDA datasets: [FoodData Central downloads](https://fdc.nal.usda.gov/download-datasets)

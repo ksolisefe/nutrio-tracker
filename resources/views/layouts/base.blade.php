@@ -60,19 +60,38 @@
                 <flux:navbar.item class="max-lg:hidden" icon="information-circle" href="#" label="Help" />
             </flux:navbar>
     
+            @auth
+                <flux:text>Hello, {{ auth()->user()->name }}</flux:text>
+            @endauth
             <flux:dropdown position="top" align="start">
-                <flux:profile avatar="https://fluxui.dev/img/demo/user.png" />
-    
+            @auth
+                <flux:profile avatar="https://fluxui.dev/img/demo/user.png" href="" />
+
                 <flux:menu>
                     <flux:menu.radio.group>
-                        <flux:menu.radio checked>Olivia Martin</flux:menu.radio>
-                        <flux:menu.radio>Truly Delta</flux:menu.radio>
+                        <flux:menu.radio checked>Profile</flux:menu.radio>
                     </flux:menu.radio.group>
-    
+
                     <flux:menu.separator />
-    
-                    <flux:menu.item icon="arrow-right-start-on-rectangle">Logout</flux:menu.item>
+
+                    <form method="POST" action="{{ route('logout') }}" class="w-full">
+                        @csrf
+                        <flux:menu.item as="button" type="submit" class="w-full">
+                            {{ __('Log Out') }}
+                        </flux:menu.item>
+                    </form>
                 </flux:menu>
+            @endauth
+            @guest
+                <flux:text>Hello, Guest</flux:text>
+                <flux:dropdown position="top" align="start">
+                    <flux:profile avatar="https://ui-avatars.com/api/?name=G&background=cccccc&color=ffffff" href="" />
+                    <flux:menu>
+                        <flux:menu.item icon="arrow-right-start-on-rectangle" href="{{ route('login') }}">Login</flux:menu.item>
+                        <flux:menu.item icon="arrow-right-start-on-rectangle" href="{{ route('register') }}">Register</flux:menu.item>
+                    </flux:menu>
+                </flux:dropdown>
+            @endguest
             </flux:dropdown>
         </flux:header>
     

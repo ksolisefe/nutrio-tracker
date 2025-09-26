@@ -73,7 +73,7 @@ class ImportUsdaBrandedData extends Command
                 $gtinUpc = $item['gtinUpc'] ?? '';
                 $servingSize = $item['servingSize'] ?? 0;
                 $servingSizeUnit = $item['servingSizeUnit'] ?? '';
-                
+                $ingredients = $item['ingredients'] ?? '';
                 // Initialize nutrient values
                 $calories = 0;
                 $protein = 0;
@@ -160,6 +160,7 @@ class ImportUsdaBrandedData extends Command
                     'protein' => $protein,
                     'carbohydrates' => $carbohydrates,
                     'fat' => $fat,
+                    'ingredients' => $ingredients,
                     'brand_owner' => $brandOwner,
                     'gtin_upc' => $gtinUpc,
                     'serving_size' => $servingSize,

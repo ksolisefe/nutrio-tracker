@@ -86,6 +86,7 @@ class ImportUsdaData extends Command
                     'carbohydrates' => $carbohydrates,
                     'fat' => $fat,
                     'brand_owner' => null,
+                    'ingredients' => null,
                     'gtin_upc' => null,
                     'serving_size' => null,
                     'serving_size_unit' => null,
