@@ -36,10 +36,15 @@ class Index extends Component
 
         // dd($random_foods);
 
-        return view('livewire.food.index', [
-            'foods' => $foods,
-            'random_foods' => $random_foods,
-            'favorite_foods' => $favorite_foods,
-        ]);
+        return view('livewire.food.index')
+            ->layout('layouts.base')
+            ->layoutData([
+                'title' => 'Food Index'
+            ])
+            ->with([
+                'foods' => $foods,
+                'random_foods' => $random_foods,
+                'favorite_foods' => $favorite_foods,
+            ]);
     }
 }

@@ -10,11 +10,12 @@ use App\Livewire\Auth\Register;
 use App\Livewire\Auth\Verify;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Favorite\Index as FavoriteIndex;
+use App\Livewire\Food\Index as FoodIndex;
 
 
 Route::view('/', 'welcome')->name('home');
 
-Route::view('food', 'food.index')->name('food.index');
+Route::get('food', FoodIndex::class)->name('food.index');
 Route::get('favorite', FavoriteIndex::class)->name('favorite.index')->middleware('auth');
 
 Route::middleware('guest')->group(function () {
