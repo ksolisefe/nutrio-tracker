@@ -38,18 +38,10 @@
             <flux:navbar class="-mb-px max-lg:hidden">
                 <flux:navbar.item icon="home" href="{{ route('home') }}" current>Home</flux:navbar.item>
                 <flux:navbar.item icon="inbox" badge="12" href="{{ route('food.index') }}">Food</flux:navbar.item>
-    
+                
                 <flux:separator vertical variant="subtle" class="my-2"/>
+                <flux:navbar.item icon="inbox" badge="12" href="{{ route('favorite.index') }}">Favorite Foods</flux:navbar.item>
     
-                <flux:dropdown class="max-lg:hidden">
-                    <flux:navbar.item icon:trailing="chevron-down">Favorites</flux:navbar.item>
-    
-                    <flux:navmenu>
-                        <flux:navmenu.item href="#">Marketing site</flux:navmenu.item>
-                        <flux:navmenu.item href="#">Android app</flux:navmenu.item>
-                        <flux:navmenu.item href="#">Brand guidelines</flux:navmenu.item>
-                    </flux:navmenu>
-                </flux:dropdown>
             </flux:navbar>
     
             <flux:spacer />
@@ -110,12 +102,7 @@
             <flux:sidebar.nav>
                 <flux:sidebar.item icon="home" href="{{ route('home') }}">Home</flux:sidebar.item>
                 <flux:sidebar.item icon="home" href="{{ route('food.index') }}">Food</flux:sidebar.item>
-    
-                <flux:sidebar.group expandable heading="Favorites" class="grid">
-                    <flux:sidebar.item href="#">Marketing site</flux:sidebar.item>
-                    <flux:sidebar.item href="#">Android app</flux:sidebar.item>
-                    <flux:sidebar.item href="#">Brand guidelines</flux:sidebar.item>
-                </flux:sidebar.group>
+                <flux:sidebar.item icon="home" href="{{ route('favorite.index') }}">Favorite Foods</flux:sidebar.item>
             </flux:sidebar.nav>
     
             <flux:sidebar.spacer />

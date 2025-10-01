@@ -1,4 +1,4 @@
-@props(['food'])
+@props(['food', 'favorite_foods'])
 
 <div class="bg-slate-800/50 rounded-lg border border-white/10 shadow-md p-4 justify-between flex flex-col gap-2">
     <div class="flex gap-2 flex-wrap">
@@ -19,5 +19,11 @@
         <flux:badge size="sm" color="green" title="Protein">P: {{ $food->protein }}</flux:badge>
         <flux:badge size="sm" color="green" title="Carbohydrates">C: {{ $food->carbohydrates }}</flux:badge>
         <flux:badge size="sm" color="blue" title="Fat">F: {{ $food->fat }}</flux:badge>
+    </div>
+    <div class="flex gap-2 flex-wrap">
+        @auth
+        <flux:button size="xs" variant="primary" color="amber" title="Add to Favorites" wire:click="addFavoriteFood({{ $food->id }})">Add to Favorites</flux:button>
+        @endauth
+        <flux:button size="xs" variant="filled" title="Add to Favorites" wire:click="trackFood({{ $food->id }})">Track</flux:button>
     </div>
 </div>
